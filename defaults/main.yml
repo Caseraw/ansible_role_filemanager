@@ -1,0 +1,37 @@
+---
+### Managing files and directories.
+## Minimum required values: 'type', 'state' and 'dest'
+##
+## For better maintainability, the file list is built during runtime by
+## combining all lists together. This will provide the freedom of declaring
+## custom file lists for granular control. The lists require a naming
+## convention by using a pattern. The pattern is rendered as a single list
+## which can be used for iteration with variable: 'role_file_manager_file_list'
+## The list name pattern needs to start with: 'role_file_manager_file_list_'
+
+role_file_manager_file_list_default: []
+
+## Example:
+# role_file_manager_file_list_some_stuff:
+#   - type: directory
+#     state: absent
+#     dest: /tmp/example.dir.tmp
+#     owner: root
+#     group: root
+#     mode: '0755'
+#   - type: file
+#     state: present
+#     src: example.file
+#     dest: /tmp/example.file.tmp
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   - type: template
+#     state: present
+#     src: example.template.j2
+#     dest: /etc/motd
+#     owner: root
+#     group: root
+#     mode: '0644'
+
+...

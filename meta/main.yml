@@ -1,0 +1,36 @@
+---
+galaxy_info:
+  author: Kasra Amirsarvari
+  description: Managing files, directories and file links.
+  company: N/A
+  license: license (BSD, MIT)
+  min_ansible_version: 2.8
+  platforms:
+    - name: Fedora
+      versions:
+        - 28
+        - 29
+        - 30
+        - 31
+    - name: EL
+      versions:
+        - 7
+        - 8
+  galaxy_tags:
+    - files
+    - file
+    - template
+    - templates
+    - directories
+    - directory
+    - folders
+    - folder
+    - symlink
+    - hardlink
+    - link
+    - manager
+    - manage
+
+dependencies: []
+
+...

@@ -1,0 +1,143 @@
+---
+- name: Populate file lists
+  set_fact:
+    role_file_manager_file_list: '{{ role_file_manager_file_list | default([]) + vars[item] }}'
+  loop: "{{ vars.keys() | select('match', '^role_file_manager_file_list_.*$') | list }}"
+  tags:
+    - tag_role_file_manager_create_dirs_an_update_attributes
+    - tag_role_file_manager_copy_files
+    - tag_role_file_manager_deploy_templates
+    - tag_role_file_manager_create_file_links
+    - tag_role_file_manager_remove_files_and_dirs
+
+- name: Create directories and update file/folder attributes
+  file:
+    path: '{{ item.dest }}'
+    state: '{{ item.type | default(omit) }}'
+    src: '{{ item.src | default(omit) }}'
+    mode: '{{ item.mode | default(omit) }}'
+    owner: '{{ item.owner | default(omit) }}'
+    group: '{{ item.group | default(omit) }}'
+    access_time: '{{ item.access_time | default(omit) }}'
+    access_time_format: '{{ item.access_time_format | default(omit) }}'
+    attributes: '{{ item.attributes | default(omit) }}'
+    follow: '{{ item.follow | default(omit) }}'
+    force: '{{ item.force | default(omit) }}'
+    modification_time: '{{ item.modification_time | default(omit) }}'
+    modification_time_format: '{{ item.modification_time_format | default(omit) }}'
+    recurse: '{{ item.recurse | default(omit) }}'
+    selevel: '{{ item.selevel | default(omit) }}'
+    serole: '{{ item.serole | default(omit) }}'
+    setype: '{{ item.setype | default(omit) }}'
+    seuser: '{{ item.seuser | default(omit) }}'
+    unsafe_writes: '{{ item.unsafe_writes | default(omit) }}'
+  loop: '{{ role_file_manager_file_list }}'
+  when:
+    - (item.type == 'directory') or
+      (item.type == 'touch')
+    - item.state == 'present'
+  tags:
+    - tag_role_file_manager_create_dirs_an_update_attributes
+
+- name: Copy files
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    mode: '{{ item.mode | default(omit) }}'
+    owner: '{{ item.owner | default(omit) }}'
+    group: '{{ item.group | default(omit) }}'
+    attributes: '{{ item.attributes | default(omit) }}'
+    backup: '{{ item.backup | default(omit) }}'
+    checksum: '{{ item.checksum | default(omit) }}'
+    content: '{{ item.content | default(omit) }}'
+    decrypt: '{{ item.decrypt | default(omit) }}'
+    directory_mode: '{{ item.directory_mode | default(omit) }}'
+    follow: '{{ item.follow | default(omit) }}'
+    force: '{{ item.force | default(omit) }}'
+    local_follow: '{{ item.local_follow | default(omit) }}'
+    remote_src: '{{ item.remote_src | default(omit) }}'
+    selevel: '{{ item.selevel | default(omit) }}'
+    serole: '{{ item.serole | default(omit) }}'
+    setype: '{{ item.setype | default(omit) }}'
+    seuser: '{{ item.seuser | default(omit) }}'
+    unsafe_writes: '{{ item.unsafe_writes | default(omit) }}'
+    validate: '{{ item.validate | default(omit) }}'
+  loop: '{{ role_file_manager_file_list }}'
+  when:
+    - item.type == 'file'
+    - item.state == 'present'
+  tags:
+    - tag_role_file_manager_copy_files
+
+- name: Create files from templates
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    backup: '{{ item.backup | default(omit) }}'
+    attributes: '{{ item.attributes | default(omit) }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+    mode: '{{ item.mode | default("0440") }}'
+    block_start_string: '{{ item.block_start_string | default(omit) }}'
+    block_end_string: '{{ item.block_end_string | default(omit) }}'
+    variable_start_string: '{{ item.variable_start_string | default(omit) }}'
+    variable_end_string: '{{ item.variable_end_string | default(omit) }}'
+    lstrip_blocks: '{{ item.lstrip_blocks | default(omit) }}'
+    trim_blocks: '{{ item.trim_blocks | default(omit) }}'
+    newline_sequence: '{{ item.newline_sequence | default(omit) }}'
+    output_encoding: '{{ item.output_encoding | default(omit) }}'
+    selevel: '{{ item.selevel | default(omit) }}'
+    serole: '{{ item.serole | default(omit) }}'
+    setype: '{{ item.setype | default(omit) }}'
+    seuser: '{{ item.seuser | default(omit) }}'
+    unsafe_writes: '{{ item.unsafe_writes | default(omit) }}'
+    follow: '{{ item.follow | default(omit) }}'
+    force: '{{ item.force | default(omit) }}'
+    validate: '{{ item.validate | default(omit) }}'
+  loop: '{{ role_file_manager_file_list }}'
+  when:
+    - item.type == 'template'
+    - item.state == 'present'
+  tags:
+    - tag_role_file_manager_deploy_templates
+
+- name: Create symlinks and hardlinks
+  file:
+    path: '{{ item.dest }}'
+    state: '{{ item.type | default(omit) }}'
+    src: '{{ item.src | default(omit) }}'
+    mode: '{{ item.mode | default(omit) }}'
+    owner: '{{ item.owner | default(omit) }}'
+    group: '{{ item.group | default(omit) }}'
+    access_time: '{{ item.access_time | default(omit) }}'
+    access_time_format: '{{ item.access_time_format | default(omit) }}'
+    attributes: '{{ item.attributes | default(omit) }}'
+    follow: '{{ item.follow | default(omit) }}'
+    force: '{{ item.force | default(omit) }}'
+    modification_time: '{{ item.modification_time | default(omit) }}'
+    modification_time_format: '{{ item.modification_time_format | default(omit) }}'
+    recurse: '{{ item.recurse | default(omit) }}'
+    selevel: '{{ item.selevel | default(omit) }}'
+    serole: '{{ item.serole | default(omit) }}'
+    setype: '{{ item.setype | default(omit) }}'
+    seuser: '{{ item.seuser | default(omit) }}'
+    unsafe_writes: '{{ item.unsafe_writes | default(omit) }}'
+  loop: '{{ role_file_manager_file_list }}'
+  when:
+    - (item.type == 'link') or
+      (item.type == 'hard')
+    - item.state == 'present'
+  tags:
+    - tag_role_file_manager_create_file_links
+
+- name: Cleanup unwanted directories, files and file links
+  file:
+    path: '{{ item.dest }}'
+    state: absent
+  loop: '{{ role_file_manager_file_list }}'
+  when:
+    - item.state == 'absent'
+  tags:
+    - tag_role_file_manager_remove_files_and_dirs
+
+...

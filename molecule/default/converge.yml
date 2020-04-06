@@ -1,0 +1,43 @@
+---
+- name: Converge
+  hosts: all
+  become: True
+  gather_facts: False
+  tasks:
+    - import_role:
+        name: ansible_role_filemanager
+      vars:
+        role_file_manager_file_list_default:
+          - type: directory
+            state: present
+            dest: /tmp/example.dir
+            owner: root
+            group: root
+            mode: '0755'
+          - type: file
+            state: present
+            src: example.file
+            dest: /tmp/example.file
+            owner: root
+            group: root
+            mode: '0644'
+          - type: template
+            state: present
+            src: example.template.j2
+            dest: /tmp/example.template
+            owner: root
+            group: root
+            mode: '0644'
+          - type: link
+            state: present
+            src: /tmp/example.file
+            dest: /tmp/symlink_to_example.file
+            owner: root
+            group: root
+            mode: '0644'
+          - type: hard
+            state: present
+            src: /tmp/example.template
+            dest: /tmp/hardlink_to_example.template
+
+...
