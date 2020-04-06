@@ -2,7 +2,7 @@
 
 Managing files, directories and file links.
 
-[![Build Status](https://travis-ci.org/Caseraw/role_file_manager.svg?branch=master)](https://travis-ci.org/Caseraw/role_file_manager) [<img src="https://img.shields.io/ansible/role/47700">](https://galaxy.ansible.com/caseraw/role_file_manager) [<img src="https://img.shields.io/ansible/role/d/47700">](https://galaxy.ansible.com/caseraw/role_file_manager) [<img src="https://img.shields.io/ansible/quality/47700">](https://galaxy.ansible.com/caseraw/role_file_manager)
+[![Build Status](https://travis-ci.org/Caseraw/ansible_role_filemanager.svg?branch=master)](https://travis-ci.org/Caseraw/ansible_role_filemanager) [<img src="https://img.shields.io/ansible/role/47700">](https://galaxy.ansible.com/caseraw/ansible_role_filemanager) [<img src="https://img.shields.io/ansible/role/d/47700">](https://galaxy.ansible.com/caseraw/ansible_role_filemanager) [<img src="https://img.shields.io/ansible/quality/47700">](https://galaxy.ansible.com/caseraw/ansible_role_filemanager)
 
 - [Ansible role filemanager](#ansible-role-filemanager)
   - [License](#license)
